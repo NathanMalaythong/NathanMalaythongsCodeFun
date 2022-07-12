@@ -1,0 +1,209 @@
+<html>
+<head>
+  <!-- JavaScript Functions -->
+  <script type"text/javascript">
+  // function that will generate the Email contents that checks if its either Fax API Info or File Drop Info
+
+    function generateLinks(){
+      //if it is Fax API Info
+      if(document.getElementById('e1').checked){
+      document.getElementById('result').innerHTML =
+      "Here are the links for Your Pioneer Integrations" + "<p>\n</p>" +
+      "Location >> My Location >> Rx Options >> Integrations " + "<p>\n</p>" +
+      "Click to Call: " + "https://" +
+      document.getElementById('adminSite').value + "/talkrx/pbx/originate/[extension]/[numbertodial]" + "<p>\n</p>" +
+     "------------------------------------------------------------------------------" + "<p>\n</p>" +
+      "Who's Calling Me:  https://" +   document.getElementById('adminSite').value +
+      "/talkrx/pbx/callerid/[extension]" + "<p>\n</p>" +
+      "Click Add, Type in the extension number that is closest to this workstation." + "<p>\n</p>" +
+      "The workstation name will auto-populate. It is best to do this step individually on each computer" + "<p>\n</p>" +
+      "Click Save - F12" + "<p>\n</p>"+
+      "Make sure you close out of pioneer client for it to take affect." + "<p>\n</p>"+
+       "------------------------------------------------------------------------------" + "<p>\n</p>" +
+       "Fax Integrations: "  + "<p>\n</p>" +
+       "URL: https://" + document.getElementById('adminSite').value + "/TalkRx/Fax/vendor" + "<p>\n</p>" +
+       "Fax DID:" +
+      document.getElementById('faxline').value + "<p>\n</p>" + "Username: " +
+      document.getElementById('apiUsername').value + "<p>\n</p>" +"Password: "+
+      document.getElementById('apiPassword').value
+
+      //If it is File Drop Info
+    } else if(document.getElementById('e2').checked){
+      document.getElementById('result').innerHTML =
+        "File Drop Information" + "<p>\n</p>" + "Incoming: \\\\" +
+          document.getElementById('fileDropIn').value + "\\Fax\\new" + "<p>\n</p>"  + "Outgoing: \\\\" +
+          document.getElementById('fileDropOut').value + "\\Fax\\old" + "<p>\n</p>"  +
+          "Username: " + document.getElementById('fileDropUsername').value + "<p>\n</p>"  +
+          "Password: " + document.getElementById('fileDropPass').value +  "<p>\n</p>"  +
+          "Fax DID: " + document.getElementById('faxline').value
+      }
+  }
+  function makeEmail(){
+    window.open('mailto:' + document.getElementById('pioTechEmail').value+'?&subject=Pioneer Integration Links&cc=support@vowinc.com');
+}
+
+    //functions that make certain divs disappear and reappear on checking the Fax API or File Drop radio buttons
+    function show(str){
+               document.getElementById('faxDidURL').style.display = 'none';
+               document.getElementById('fileDropDiv').style.display = 'block';
+           }
+           function show2(sign){
+               document.getElementById('faxDidURL').style.display = 'block';
+               document.getElementById('fileDropDiv').style.display = 'none';
+           }
+           function showResult(){
+              document.getElementById('result').style.display = 'block';
+            }
+            //Function that creates the link to go to the PBX page of the Fax line Number and Admin site url they enter into the form
+            function generatePbxFaxLink(){
+
+                  window.open('https://' + document.getElementById('adminSite').value +
+                  "/admin/config.php?display=talkrxfaxlines&action=view&did=" + document.getElementById('faxline').value + "target='_blank'");
+            }
+    </script>
+  <style>
+
+  /* inline css because too lazy to create seperate css file */
+  .hide{
+    display: none;
+  }
+
+
+  /* different div styling */
+  #testButton{position: fixed; bottom: 15%}
+  #email{position: fixed; bottom: 45%; left: 2%;}
+  #pbxResult{position: absolute; top: 21%;left : 10%;}
+  #pbx-Btn{position: absolute;; top: 17%; left: 29%;}
+  #copyright {position: absolute;; bottom:20%; left: 35%}
+  #fileDropInputs{position: fixed; top: 50%; text-align: center; top: 25%; }
+  #fileDropDiv{position: absolute;; top: 30%;padding: 5px;}
+  #faxDidURL {display: none; position: absolute;}
+  #adminSiteURL {padding: 15px; position: absolute;; top: 10%}
+  #faxDidURL {position: absolute;; top: 30%;}
+  #title {padding: 35px; background-color: white; position: absolute;; top: -1%; width: 100%; left: -1%; background-image: url('/Users/nmalaythong/Desktop/vowinclogo.png'); background-size:contain; background-repeat: no-repeat;}
+  #submit-Btn {text-align:center; position: absolute;; bottom: 59%; left: 29%;}
+  #result {font-size: 15px; color: black; text-align: center; padding: 50px; background-color:white; position: fixed; left: 50%; width:50%;
+  justify-content: center; display: absolute;top: 15%; border: dotted; border-radius: 10px; width: 50vh; height: 40vh;}
+  body{
+    justify-content: center;
+    align-items: start;
+    padding: 10px;
+    background: linear-gradient(135deg, #808080, #FFFFFF);
+    float: left;
+    font-family: Garamond, serif;
+  }
+
+
+    </style>
+  <title>Pioneer Link Generator</title>
+  <!-- Title of the page, will need to add the Picture of the Vow Logo-->
+  <div id="title" style="text-align:center;">
+  <h1>Pioneer Link Generator</h1>
+  </div>
+  </head>
+<body>
+  <!-- Entering admin site URL and their Fax Line Number -->
+  <div id="adminSiteURL" style="text-align:center;">
+  <h2 style="text-align:center">Admin Site URL:</h2>
+  <label for="adminSite">Enter Admin Site URL: </label>
+<input type="text" id="adminSite" name="adminSite" required placeholder="pharmacyname.talkrx.com"
+       minlength="4" maxlength="100" size="50"> <br>
+
+       <label for="faxline">Fax #:</label>
+       <input type="text" id="faxline" name="faxline" required placeholder= "8645410650" minlength="4" maxlength="25" size="34">
+  </div>
+  <!-- Div where the Link for the Generate PBX button will show and user can click on to go to PBX Fax Line Page -->
+  <!--
+  <div id="pbxResult">
+    <p>PBX Fax link will appear here to go to PBX Page</p>
+  </div>
+-->
+
+
+<!-- Radio buttons to choose whether they are using API or File Drop -->
+  <div id="fileDropInputs">
+  <h2>Pick a Fax Service:
+            <input type="radio" name="r1" id="e1" onchange="show2()"/>&nbsp;Fax API&nbsp;&nbsp;&nbsp;
+            <input type="radio" id="e2"  name="r1" onchange="show(this.value)"/>&nbsp;File Drop
+        </h2>
+      </div>
+
+<!-- This button will generate the Link for the user to get the Link to the PBX Fax Line page with the number entered in the Fax# Forum Section -->
+      <div id="pbx-Btn" class="button">
+                       <input id="register" type="submit" value="Genrate PBX Link" onclick="generatePbxFaxLink();">
+        </div>
+<!-- Entering API Credential Infromation-->
+  <div id="faxDidURL"class="hide">
+  <h1>Fax Integrations:</h1>
+<br>
+       <label for="apiUsername">Enter API Username </label>
+     <input type="text" id="apiUsername" name="apiUsername" required placeholder="123abc"
+            minlength="4" maxlength="100" size="50">
+<br>
+            <label for="apiPassword">Enter API Password </label>
+          <input type="text" id="apiPassword" name="apiPassword" required placeholder="abc123"
+                 minlength="4" maxlength="100" size="50">
+
+</div>
+
+<!-- Entering the Credentials if they are using File Drop -->
+<div id="fileDropDiv" class="hide">
+  <h1>File Drop:</h1>
+  <label for="fileDropIn">Incoming: </label>
+  <input type="text" id="fileDropIn" name="fileDropIn" required placeholder="192.168.1.xxx"
+       minlength="4" maxlength="100" size="50">
+<br>
+       <label for="fileDropOut">Outgoing: </label>
+       <input type="text" id="fileDropOut" name="fileDropOut" required placeholder="192.168.1.xxx"
+            minlength="4" maxlength="100" size="50">
+<br>
+    <label for="fileDropUsername">Username: </label>
+      <input type="text" id="fileDropUsername" name="fileDropUsername" required placeholder="newtech"
+          minlength="4" maxlength="100" size="50">
+<br>
+          <label for="fileDropPass">Password: </label>
+            <input type="text" id="fileDropPass" name="fileDropPass" required placeholder="Password"
+                minlength="4" maxlength="100" size="50">
+<br>
+
+
+
+</div>
+  </body>
+  <br>
+  <!-- This button creates the Email with all the corresponding Information on the right hand side of the page -->
+<div id="submit-Btn" class="button">
+                 <input id="register" type="submit" value="Generate Links My Guy" onclick="generateLinks(); showResult();">
+  </div>
+<!-- where the results appear in this div on the right hand side of the screen -->
+  <div id="result" class="hide">
+    <h1>Links</h1>
+    </div>
+
+
+    <!-- Copyright because i Made this peice of shit program: Nathan Malaythong -->
+    <div id="copyright">
+      <p>© 2022 Nathan Malaythong. 109 Builders Court Boiling Springs, SC 29316. For exclusive use by Vow Corporation.</p>
+    </div>
+
+    <!-- Email send button with the div stuff
+    <div id="email">
+    <h1>Email Test</h1>
+    <label for="pioEmail">Email: </label>
+    <input type="text" id="pioEmail" name="pioEmail" required placeholder="xxx@pioneerrx.com"
+         minlength="4" maxlength="100" size="50">
+         <input type="text" value="Send" onclick="makeEmail();">
+       </div> -->
+<div id="email" class="button">
+ <!--<form action="mailto:someone@example.com" method="post" enctype="text/plain">
+    <input type='submit' value='Send'>
+</form> -->
+
+<input type="text" id="pioTechEmail" name="pioTechEmail" required placeholder="nathanm@pioneerrx.com"
+    minlength="4" maxlength="100" size="50">
+    <input id="makeEmailBtn" type="submit" value="Email" onclick="makeEmail();">
+</div>
+
+
+
+</html>
